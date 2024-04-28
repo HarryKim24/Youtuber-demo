@@ -1,0 +1,19 @@
+{
+  "name": "node-base",
+  "version": "1.0.0",
+  "description": "",
+  "main": "non-blocking-demo.js",
+  "scripts": {
+    "start": "nodemon youtuber-demo.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "figlet": "^1.7.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}

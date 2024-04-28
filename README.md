@@ -1,0 +1,70 @@
+# 4월 29일 학습
+
+## ❓ postman이란
+
+🔸 웹 브라우저에서 POST  테스트
+
+- 웹 브라우저 특성상 GET 요청만 가능하기 때문에 GET이 아닌 POST, DELETE, PUT과 같은 요청을 테스트 하기에 어려움이 있다
+
+🔸 postman
+
+- postman으로 다양한 method를 테스트 할 수 있다
+
+## 📌 postman으로 GET method 테스트
+
+🔸 app.js의 main page 테스트
+
+- GET method를 선택하고 URL 입력 후 Send 클릭
+
+![1](https://github.com/HarryKim24/Youtuber-register/assets/134269606/b79c8d65-5b0a-4124-8d17-01f97a1e65f8)
+
+🔸 youtuber-demo.js 에서  객체 response 테스트
+
+- 가상의 youtuber 객체 생성 후 객체마다 id 값을 부여
+- URL의 id 입력위치에 불러오고 싶은 객체의 id 입력 후 Send 클릭
+
+<img width="1211" alt="2" src="https://github.com/HarryKim24/Youtuber-register/assets/134269606/9d80d89b-60e7-4472-b95b-33fafc4c53ff">
+
+## 📌 postman으로 POST method 테스트
+
+🔸 app.js의 test 페이지 테스트
+
+- POST method를 선택하고  URL 입력 후 Send 클릭
+
+![3](https://github.com/HarryKim24/Youtuber-register/assets/134269606/727767f2-78c1-4955-9d92-36926f02de6c)
+
+🔸 body에 숨겨진 data를 화면에 출력
+
+- body 안에 JSON형태로 저장되어있는 data를  req.body.message로 불러온다
+- res.send( )로 불러온 message를 출력한다
+
+![4](https://github.com/HarryKim24/Youtuber-register/assets/134269606/b09bb8cd-76fb-4994-ae4f-7911d3af1ac4)
+
+## 📌 POST로 새로운 객체 등록
+
+🔸 youtuber “등록” ⇒ POST/youtuber
+
+- req : body < = channelTitle, sub = 0, videoNum = 0 신규 유튜버 정보 전달
+
+![5](https://github.com/HarryKim24/Youtuber-register/assets/134269606/6e2e42ce-c42d-4ff3-a4bb-94918cdf9222)
+
+- 신규 유튜버 정보를 전달하면서 메세지 띄우기
+- res : ${db.get(4).channelTitle}님 채널이 생성되었습니다!
+
+![6](https://github.com/HarryKim24/Youtuber-register/assets/134269606/d331c004-ee79-4e2b-b7ad-410fad3ec248)
+
+- GET method로 새로 저장된 유튜버 정보 테스트
+
+![7](https://github.com/HarryKim24/Youtuber-register/assets/134269606/847d7938-d3ab-469c-9cfc-8216e416b827)
+
+🔸 자동으로 id값 증가시키기
+
+- idValue 변수 생성 후 set함수의 매개변수에 idValue++를 집어넣어서 새로운 객체를 등록 할 때마다 id값이 자동으로 증가
+
+💡 idValue 변수 타입을 var로 하는 이유 : var은 함수 코드 블록만을 스코프로 인정하기 때문에, 함수 내부 이외에 생성한 변수는 전역변수가 되고 다른 스코프 내에서 사용 가능하다
+
+![8](https://github.com/HarryKim24/Youtuber-register/assets/134269606/ebb91b47-2114-4b5e-8d0e-995db127cc22)
+
+- GET method로 잘 동작하는지 확인
+
+![9](https://github.com/HarryKim24/Youtuber-register/assets/134269606/fd62013d-e284-4518-831c-d231bf58d14c)

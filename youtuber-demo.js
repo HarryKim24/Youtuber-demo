@@ -84,6 +84,7 @@ app.delete('/youtubers/:id', (req, res) => {
   }
 })
 
+// 전체 유튜버 삭제
 app.delete('/youtubers', (req, res) => {
 
   if (db.size >= 1) {
@@ -96,5 +97,26 @@ app.delete('/youtubers', (req, res) => {
       message : '삭제할 유튜버가 존재하지 않습니다.'
     })
   }
+})
 
+// 개별 유튜버 수정
+app.put('/youtubers/:id', (req, res) => {
+  let { id } = req.params;
+  id = parseInt(id);
+  const youtuber = db.get(id);
+  var oldChannelTitle = youtuber.channelTitle;
+
+  if (youtuber == undefined) {
+    res.json({
+      message : `존재하지 않는 채널입니다.`
+    });
+  } else {
+    var newChannelTitle = req.body.channelTitle;
+    youtuber.channelTitle = newChannelTitle;
+    db.set(id, youtuber);
+
+    res.json({
+      message : `채널명이 ${oldChannelTitle} 에서 ${newChannelTitle} 로 변경되었습니다.`
+    });
+  }
 })

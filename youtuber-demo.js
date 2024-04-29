@@ -38,7 +38,7 @@ app.get("/youtubers", function (req, res) {
   res.json(youtubers);
 })
 
-app.get("/youtuber/:id", function (req, res) {
+app.get("/youtubers/:id", function (req, res) {
   let { id } = req.params;
   id = parseInt(id);
   const youtuber = db.get(id);
@@ -53,7 +53,7 @@ app.get("/youtuber/:id", function (req, res) {
 });
 
 app.use(express.json()); // http 외 모듈인 '미들웨어' : json 설정
-app.post("/youtuber", (req, res) => {
+app.post("/youtubers", (req, res) => {
   console.log(req.body);
 
   // Map(db)에 저장(set)
@@ -63,3 +63,20 @@ app.post("/youtuber", (req, res) => {
     message : `${db.get(idValue - 1).channelTitle}님 채널이 생성되었습니다!`
   });
 });
+
+app.delete('/youtubers/:id', (req, res) => {
+  let { id } = req.params;
+  id = parseInt(id);
+  const youtuber = db.get(id);
+
+  if (youtuber == undefined) {
+    res.json({
+      message : `존재하지 않는 채널입니다.`
+    });
+  } else {
+    db.delete(id);
+    res.json({
+      message : `${youtuber.channelTitle}님의 채널이 삭제되었습니다.`
+    });
+  }
+})

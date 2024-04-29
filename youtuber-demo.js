@@ -27,8 +27,8 @@ db.set(idValue++, youtuber1);
 db.set(idValue++, youtuber2);
 db.set(idValue++, youtuber3);
 
-// youtuber API 설계
-app.get("/youtubers", function (req, res) {
+// 전체 유튜버 조회
+app.get("/youtubers", (req, res) => {
 
   var youtubers = {};
   db.forEach(function(youtuber, key) {
@@ -38,20 +38,22 @@ app.get("/youtubers", function (req, res) {
   res.json(youtubers);
 })
 
-app.get("/youtubers/:id", function (req, res) {
+// 개별 유튜버 조회
+app.get("/youtubers/:id", (req, res) => {
   let { id } = req.params;
   id = parseInt(id);
   const youtuber = db.get(id);
 
   if (youtuber == undefined) {
     res.json({
-      message: "Cannot find youtuber.",
+      message: "유튜버를 찾을 수 없습니다.",
     });
   } else {
     res.json(youtuber);
   }
 });
 
+// 유튜버 생성
 app.use(express.json()); // http 외 모듈인 '미들웨어' : json 설정
 app.post("/youtubers", (req, res) => {
   console.log(req.body);
@@ -64,6 +66,7 @@ app.post("/youtubers", (req, res) => {
   });
 });
 
+// 개별 유튜버 삭제
 app.delete('/youtubers/:id', (req, res) => {
   let { id } = req.params;
   id = parseInt(id);
@@ -79,4 +82,19 @@ app.delete('/youtubers/:id', (req, res) => {
       message : `${youtuber.channelTitle}님의 채널이 삭제되었습니다.`
     });
   }
+})
+
+app.delete('/youtubers', (req, res) => {
+
+  if (db.size >= 1) {
+    db.clear();
+    res.json({
+      message : '모든 유튜브 채널이 삭제되었습니다'
+    })
+  } else {
+    res.json({
+      message : '삭제할 유튜버가 존재하지 않습니다.'
+    })
+  }
+
 })

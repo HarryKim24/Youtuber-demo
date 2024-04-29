@@ -29,9 +29,13 @@ db.set(idValue++, youtuber3);
 
 // youtuber API 설계
 app.get("/youtubers", function (req, res) {
-  res.json({
-    message: "test"
-  });
+
+  var youtubers = {};
+  db.forEach(function(youtuber, key) {
+    youtubers[key] = youtuber;
+  })
+
+  res.json(youtubers);
 })
 
 app.get("/youtuber/:id", function (req, res) {

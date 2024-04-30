@@ -22,7 +22,7 @@ app.get('/fruits/:id', (req, res) => {
   if (selectFruit) {
     res.json(selectFruit);
   } else {
-    res.status(200).json(
+    res.status(404).json(
       "cannot find fruit"
     );
   }

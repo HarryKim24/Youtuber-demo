@@ -4,7 +4,7 @@
   "description": "",
   "main": "non-blocking-demo.js",
   "scripts": {
-    "start": "nodemon youtuber-demo.js"
+    "start": "nodemon exception-demo.js"
   },
   "keywords": [],
   "author": "",

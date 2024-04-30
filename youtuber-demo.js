@@ -44,12 +44,12 @@ app.get("/youtubers/:id", (req, res) => {
   id = parseInt(id);
   const youtuber = db.get(id);
 
-  if (youtuber == undefined) {
+  if (youtuber) {
+    res.json(youtuber);
+  } else {
     res.json({
       message: "유튜버를 찾을 수 없습니다.",
     });
-  } else {
-    res.json(youtuber);
   }
 });
 
@@ -72,14 +72,14 @@ app.delete('/youtubers/:id', (req, res) => {
   id = parseInt(id);
   const youtuber = db.get(id);
 
-  if (youtuber == undefined) {
-    res.json({
-      message : `존재하지 않는 채널입니다.`
-    });
-  } else {
+  if (youtuber) {
     db.delete(id);
     res.json({
       message : `${youtuber.channelTitle}님의 채널이 삭제되었습니다.`
+    });
+  } else {
+    res.json({
+      message : `존재하지 않는 채널입니다.`
     });
   }
 })
@@ -103,20 +103,20 @@ app.delete('/youtubers', (req, res) => {
 app.put('/youtubers/:id', (req, res) => {
   let { id } = req.params;
   id = parseInt(id);
-  const youtuber = db.get(id);
-  var oldChannelTitle = youtuber.channelTitle;
+  var youtuber = db.get(id);
 
-  if (youtuber == undefined) {
-    res.json({
-      message : `존재하지 않는 채널입니다.`
-    });
-  } else {
+  if (youtuber) {
+    var oldChannelTitle = youtuber.channelTitle;
     var newChannelTitle = req.body.channelTitle;
     youtuber.channelTitle = newChannelTitle;
     db.set(id, youtuber);
 
     res.json({
       message : `채널명이 ${oldChannelTitle} 에서 ${newChannelTitle} 로 변경되었습니다.`
+    });
+  } else {
+    res.json({
+      message : `존재하지 않는 채널입니다.`
     });
   }
 })
